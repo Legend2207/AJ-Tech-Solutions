@@ -1,0 +1,491 @@
+﻿<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AJ Tech Solutions — Client Service Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="loader-shell" id="loaderShell" aria-live="polite">
+      <div class="loader-card">
+        <div class="spinner"></div>
+        <p>Preparing your client portal…</p>
+      </div>
+    </div>
+
+    <!-- Application shell -->
+    <div class="app-shell">
+      <!-- Sidebar navigation -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+          <button class="icon-btn sidebar-toggle" id="sidebarToggle" type="button" aria-label="Toggle navigation">
+            <i class="bi bi-list"></i>
+          </button>
+          <div class="brand-block">
+            <img class="brand-logo" src="img/logo2.png" alt="AJ Tech Solutions logo" />
+            <div>
+              <h3>AJ Tech Solutions</h3>
+              <p>Client Service Portal</p>
+            </div>
+          </div>
+        </div>
+
+        <nav class="nav-links" aria-label="Primary navigation">
+          <button class="nav-link active" data-page="dashboard" type="button">
+            <i class="bi bi-speedometer2"></i><span>Dashboard</span>
+          </button>
+          <button class="nav-link" data-page="catalog" type="button">
+            <i class="bi bi-box-seam"></i><span>Service Catalog</span>
+          </button>
+          <button class="nav-link" data-page="requests" type="button">
+            <i class="bi bi-journal-check"></i><span>My Requests</span>
+          </button>
+          <button class="nav-link" data-page="billing" type="button">
+            <i class="bi bi-receipt"></i><span>Invoices</span>
+          </button>
+          <button class="nav-link" data-page="billing" type="button">
+            <i class="bi bi-credit-card"></i><span>Payments</span>
+          </button>
+          <button class="nav-link" data-page="support" type="button">
+            <i class="bi bi-life-preserver"></i><span>Support</span>
+          </button>
+          <button class="nav-link" data-page="notifications" type="button">
+            <i class="bi bi-bell"></i><span>Notifications</span>
+          </button>
+          <button class="nav-link" data-page="documents" type="button">
+            <i class="bi bi-folder2-open"></i><span>Documents</span>
+          </button>
+          <button class="nav-link" data-page="profile" type="button">
+            <i class="bi bi-person-circle"></i><span>Profile</span>
+          </button>
+          <button class="nav-link" data-page="settings" type="button">
+            <i class="bi bi-gear"></i><span>Settings</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button class="nav-link logout-link" type="button">
+            <i class="bi bi-box-arrow-right"></i><span>Logout</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main content area -->
+      <div class="main-panel">
+        <!-- Top navigation bar -->
+        <header class="topbar">
+          <button class="icon-btn mobile-toggle" id="mobileToggle" type="button" aria-label="Open navigation">
+            <i class="bi bi-list"></i>
+          </button>
+          <label class="search-box" aria-label="Search the portal">
+            <i class="bi bi-search"></i>
+            <input id="globalSearch" type="search" placeholder="Search requests, invoices, support..." />
+          </label>
+
+          <div class="topbar-actions">
+            <div class="date-pill" id="currentDate"></div>
+            <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">
+              <i class="bi bi-sun"></i>
+            </button>
+            <button class="icon-btn" id="notificationsToggle" type="button" aria-label="Open notifications">
+              <i class="bi bi-bell"></i>
+              <span class="badge-dot" id="notificationBadge">0</span>
+            </button>
+            <div class="profile-pill">
+              <div class="avatar">AJ</div>
+              <div>
+                <strong>Ahmad Jidda</strong>
+                <p>Premium Client</p>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Portal page content -->
+        <main class="content-area">
+          <section class="page active" id="page-dashboard">
+            <div class="hero-card">
+              <div>
+                <p class="eyebrow">Enterprise client service portal</p>
+                <h1>Welcome back, Ahmad Jidda</h1>
+                <p>Track every solution request, payment, support ticket, and project milestone from one premium workspace.</p>
+              </div>
+              <div class="hero-actions">
+                <button class="btn btn-primary" id="requestServiceHero" type="button">Request Service</button>
+                <button class="btn btn-ghost" id="downloadInvoiceHero" type="button">Download Invoice</button>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <article class="metric-card">
+                <div class="metric-label">Active Services</div>
+                <div class="metric-value" data-target="4">0</div>
+                <div class="metric-foot">2 in progress</div>
+              </article>
+              <article class="metric-card">
+                <div class="metric-label">Pending Requests</div>
+                <div class="metric-value" data-target="3">0</div>
+                <div class="metric-foot">1 needs review</div>
+              </article>
+              <article class="metric-card">
+                <div class="metric-label">Completed Requests</div>
+                <div class="metric-value" data-target="7">0</div>
+                <div class="metric-foot">93% satisfaction</div>
+              </article>
+              <article class="metric-card">
+                <div class="metric-label">Open Tickets</div>
+                <div class="metric-value" data-target="2">0</div>
+                <div class="metric-foot">Average response 15m</div>
+              </article>
+            </div>
+
+            <div class="content-grid">
+              <section class="panel panel-large">
+                <div class="panel-head">
+                  <h2>Service progress</h2>
+                  <span class="chip chip-success">Live</span>
+                </div>
+                <canvas id="progressChart" height="180"></canvas>
+              </section>
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>Recent notifications</h2>
+                  <button class="text-btn" id="viewAllNotifications" type="button">View all</button>
+                </div>
+                <ul class="notification-list" id="dashboardNotifications"></ul>
+              </section>
+            </div>
+
+            <div class="content-grid">
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>Quick actions</h2>
+                </div>
+                <div class="action-list">
+                  <button class="action-card" type="button" data-open-service-modal>
+                    <i class="bi bi-plus-circle"></i><span>Request Service</span>
+                  </button>
+                  <button class="action-card" type="button">
+                    <i class="bi bi-chat-dots"></i><span>Open Ticket</span>
+                  </button>
+                  <button class="action-card" type="button">
+                    <i class="bi bi-download"></i><span>Download Invoice</span>
+                  </button>
+                  <button class="action-card" type="button">
+                    <i class="bi bi-headset"></i><span>Contact Support</span>
+                  </button>
+                </div>
+              </section>
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>Activity timeline</h2>
+                </div>
+                <div class="timeline" id="activityTimeline"></div>
+              </section>
+            </div>
+          </section>
+
+          <section class="page" id="page-catalog">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Service catalog</p>
+                <h1>Professional technology services</h1>
+              </div>
+              <button class="btn btn-primary" data-open-service-modal type="button">Request a service</button>
+            </div>
+            <div class="services-grid" id="servicesGrid"></div>
+          </section>
+
+          <section class="page" id="page-requests">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">My requests</p>
+                <h1>Request tracker</h1>
+              </div>
+              <button class="btn btn-primary" data-open-service-modal type="button">New request</button>
+            </div>
+            <div class="panel">
+              <div class="panel-head">
+                <h2>All submitted requests</h2>
+                <label class="search-box compact" aria-label="Filter requests">
+                  <i class="bi bi-funnel"></i>
+                  <input id="requestSearch" type="search" placeholder="Filter by service or status" />
+                </label>
+              </div>
+              <div class="table-wrap">
+                <table class="table-modern">
+                  <thead>
+                    <tr>
+                      <th>Request ID</th>
+                      <th>Service</th>
+                      <th>Priority</th>
+                      <th>Status</th>
+                      <th>Assigned Staff</th>
+                      <th>Created</th>
+                      <th>Expected</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="requestsTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="panel request-details" id="requestDetailsPanel">
+              <div class="panel-head">
+                <h2>Request details</h2>
+              </div>
+              <div id="requestDetailsContent"></div>
+            </div>
+          </section>
+
+          <section class="page" id="page-billing">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Billing</p>
+                <h1>Invoices and payments</h1>
+              </div>
+            </div>
+            <div class="content-grid">
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>Outstanding invoices</h2>
+                </div>
+                <div id="outstandingInvoices"></div>
+              </section>
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>Payment history</h2>
+                </div>
+                <div id="paymentHistory"></div>
+              </section>
+            </div>
+          </section>
+
+          <section class="page" id="page-support">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Support and profile</p>
+                <h1>Service desk and account profile</h1>
+              </div>
+            </div>
+            <div class="content-grid">
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>Open tickets</h2>
+                  <button class="text-btn" type="button">New ticket</button>
+                </div>
+                <div id="ticketsList"></div>
+              </section>
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>Support chat</h2>
+                  <span class="chip">Online</span>
+                </div>
+                <div class="chat-card">
+                  <div class="chat-message inbound">Hello Ahmad, your service update has been reviewed.</div>
+                  <div class="chat-message outbound">Perfect. Please share the revised timeline.</div>
+                  <div class="chat-message inbound">Absolutely, I will attach the revised plan shortly.</div>
+                </div>
+              </section>
+            </div>
+            <div class="content-grid">
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>Documents</h2>
+                </div>
+                <div id="documentsList"></div>
+              </section>
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>Profile</h2>
+                </div>
+                <div class="profile-card">
+                  <div class="profile-identity">
+                    <div class="avatar large">AJ</div>
+                    <div>
+                      <h3>Ahmad Jidda</h3>
+                      <p>C.E.O, AJ Tech Solutions</p>
+                    </div>
+                  </div>
+                  <div class="profile-meta">
+                    <div><span>Email</span><strong>ahmad@gmail.com</strong></div>
+                    <div><span>Phone</span><strong>+234 9018661304</strong></div>
+                    <div><span>Address</span><strong>7 Alhajiyel Plaza, Gombe</strong></div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <section class="page" id="page-notifications">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Notifications</p>
+                <h1>Activity center</h1>
+              </div>
+            </div>
+            <section class="panel">
+              <div class="panel-head">
+                <h2>Latest alerts</h2>
+              </div>
+              <div id="notificationCenterList"></div>
+            </section>
+          </section>
+
+          <section class="page" id="page-documents">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Documents</p>
+                <h1>Files and contracts</h1>
+              </div>
+            </div>
+            <section class="panel">
+              <div class="panel-head">
+                <h2>Shared documents</h2>
+              </div>
+              <div id="documentsArchive"></div>
+            </section>
+          </section>
+
+          <section class="page" id="page-profile">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Profile</p>
+                <h1>Manage your account</h1>
+              </div>
+            </div>
+            <section class="panel">
+              <div class="panel-head">
+                <h2>Contact and account settings</h2>
+              </div>
+              <div class="profile-card wide">
+                <div class="profile-identity">
+                  <div class="avatar large">JD</div>
+                  <div>
+                    <h3>Ahmad Jidda</h3>
+                    <p>C.E.O • AJ Tech Solutions</p>
+                  </div>
+                </div>
+                <div class="profile-meta">
+                  <div><span>Company</span><strong>AJ Tech Solutions</strong></div>
+                  <div><span>Business type</span><strong>Technology Services</strong></div>
+                  <div><span>Notification settings</span><strong>Emails + In-app alerts</strong></div>
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <section class="page" id="page-settings">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Settings</p>
+                <h1>Portal preferences</h1>
+              </div>
+            </div>
+            <section class="panel">
+              <div class="panel-head">
+                <h2>Preferences</h2>
+              </div>
+              <div class="settings-list">
+                <div class="setting-row"><span>Dark mode</span><span class="chip">Enabled</span></div>
+                <div class="setting-row"><span>Notifications</span><span class="chip">Personalized</span></div>
+                <div class="setting-row"><span>Two-step verification</span><span class="chip chip-success">Active</span></div>
+              </div>
+            </section>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div class="overlay" id="sidebarOverlay"></div>
+
+    <aside class="notification-drawer" id="notificationDrawer" aria-label="Notification drawer">
+      <div class="panel-head drawer-head">
+        <h2>Notifications</h2>
+        <button class="text-btn" id="closeNotifications" type="button">Close</button>
+      </div>
+      <div id="drawerNotificationList"></div>
+    </aside>
+
+    <!-- Request service modal -->
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-card" id="requestModal" role="dialog" aria-modal="true" aria-labelledby="requestModalTitle">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">Service request</p>
+          <h2 id="requestModalTitle">Request a new service</h2>
+        </div>
+        <button class="icon-btn" id="closeModal" type="button" aria-label="Close modal">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <form id="requestForm" class="request-form">
+        <div class="form-grid">
+          <label>
+            <span>Service name</span>
+            <input id="serviceName" name="serviceName" type="text" required />
+          </label>
+          <label>
+            <span>Client name</span>
+            <input id="clientName" name="clientName" type="text" required />
+          </label>
+          <label>
+            <span>Email</span>
+            <input id="email" name="email" type="email" required />
+          </label>
+          <label>
+            <span>Phone number</span>
+            <input id="phone" name="phone" type="tel" required />
+          </label>
+          <label>
+            <span>Company name</span>
+            <input id="companyName" name="companyName" type="text" />
+          </label>
+          <label>
+            <span>Priority</span>
+            <select id="priority" name="priority">
+              <option value="Low">Low</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="High">High</option>
+            </select>
+          </label>
+          <label>
+            <span>Preferred start date</span>
+            <input id="preferredStartDate" name="preferredStartDate" type="date" />
+          </label>
+          <label>
+            <span>Estimated budget</span>
+            <input id="estimatedBudget" name="estimatedBudget" type="text" />
+          </label>
+        </div>
+        <label>
+          <span>Description of request</span>
+          <textarea id="description" name="description" rows="4" required></textarea>
+        </label>
+        <label>
+          <span>Upload documents</span>
+          <input id="documents" name="documents" type="file" multiple />
+        </label>
+        <label>
+          <span>Additional notes</span>
+          <textarea id="additionalNotes" name="additionalNotes" rows="3"></textarea>
+        </label>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="cancelModal" type="button">Cancel</button>
+          <button class="btn btn-primary" type="submit">Submit request</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="toast" id="toast" aria-live="polite"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

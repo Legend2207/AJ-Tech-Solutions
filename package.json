@@ -1,0 +1,17 @@
+{
+  "name": "aj-tech-auth",
+  "version": "1.0.0",
+  "description": "Secure login and registration app for AJ Tech Solutions",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "smoke": "node scripts/smoke.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.19.2",
+    "express-session": "^1.5.0",
+    "sqlite3": "^5.1.0",
+    "socket.io": "^4.7.2"
+  }
+}
