@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>AJ Tech Solutions — Client Service Portal</title>
+    <meta name="description" content="Explore AJ Tech Solutions website, software, mobile, cloud, networking, cybersecurity, and IT services. Manage client requests securely." />
+    <meta name="theme-color" content="#060b18" />
+    <title>AJ Tech Solutions | Business Technology Services</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -12,6 +14,45 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <main class="auth-gate" id="authGate" hidden>
+      <section class="auth-overview" aria-labelledby="businessTitle">
+        <img class="brand-logo" id="publicCompanyLogo" src="img/logo2.png" alt="AJ Tech Solutions" />
+        <p class="eyebrow">AJ Tech Solutions</p>
+        <h1 id="businessTitle">Technology for your next step.</h1>
+        <p class="auth-intro" id="publicSiteIntro">Websites, software, mobile apps, cloud, networking, security, and IT support.</p>
+        <p class="auth-intro" id="publicSiteAbout"></p>
+        <p class="auth-intro" id="publicSiteAnnouncement"></p>
+        <p class="auth-intro" id="publicSiteContact"></p>
+        <p class="auth-intro" id="publicMaintenanceNotice" hidden>The Client Portal is temporarily under maintenance. Please try again later.</p>
+        <div id="publicFaqList" class="public-faq-list"></div>
+        <div id="publicServiceList" class="public-service-list"></div>
+      </section>
+      <section class="auth-card" aria-labelledby="authTitle">
+        <p class="eyebrow">Client portal</p>
+        <h2 id="authTitle">Sign in to your account</h2>
+        <p class="auth-intro" id="authDescription">Access your requests and account.</p>
+        <form id="loginForm" class="auth-form">
+          <label><span>Email address</span><input name="email" type="email" autocomplete="email" required /></label>
+          <label><span>Password</span><input name="password" type="password" autocomplete="current-password" required /></label>
+          <button class="btn btn-primary" type="submit">Sign in</button>
+        </form>
+        <form id="registerForm" class="auth-form" hidden>
+          <label><span>Full name</span><input name="fullName" type="text" autocomplete="name" maxlength="100" required /></label>
+          <label><span>Email address</span><input name="email" type="email" autocomplete="email" required /></label>
+          <label><span>Account type</span><select name="accountType" id="registrationAccountType"><option value="client">Client account</option><option value="admin_request">Request Admin access (requires approval)</option></select></label>
+          <label id="registrationPasswordLabel"><span>Password</span><input name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" placeholder="At least 12 characters" required /></label>
+          <button class="btn btn-primary" id="registerSubmitButton" type="submit">Create account</button>
+        </form>
+        <form id="forcedPasswordForm" class="auth-form" hidden>
+          <label><span>Temporary password</span><input name="currentPassword" type="password" autocomplete="current-password" required /></label>
+          <label><span>New password</span><input name="newPassword" type="password" autocomplete="new-password" minlength="12" maxlength="128" required /></label>
+          <label><span>Confirm new password</span><input name="confirmPassword" type="password" autocomplete="new-password" minlength="12" maxlength="128" required /></label>
+          <button class="btn btn-primary" type="submit">Set new password</button>
+        </form>
+        <p class="auth-switch"><span id="authSwitchText">New to AJ Tech Solutions?</span> <button class="text-btn" id="authSwitch" type="button">Create an account</button></p>
+        <p class="auth-error" id="authError" role="alert" hidden></p>
+      </section>
+    </main>
     <div class="loader-shell" id="loaderShell" aria-live="polite">
       <div class="loader-card">
         <div class="spinner"></div>
@@ -20,7 +61,7 @@
     </div>
 
     <!-- Application shell -->
-    <div class="app-shell">
+    <div class="app-shell" hidden>
       <!-- Sidebar navigation -->
       <aside class="sidebar" id="sidebar">
         <div class="sidebar-top">
@@ -37,40 +78,70 @@
         </div>
 
         <nav class="nav-links" aria-label="Primary navigation">
-          <button class="nav-link active" data-page="dashboard" type="button">
+          <button class="nav-link active" data-client-page data-page="dashboard" type="button">
             <i class="bi bi-speedometer2"></i><span>Dashboard</span>
           </button>
-          <button class="nav-link" data-page="catalog" type="button">
+          <button class="nav-link" data-client-page data-page="catalog" type="button">
             <i class="bi bi-box-seam"></i><span>Service Catalog</span>
           </button>
-          <button class="nav-link" data-page="requests" type="button">
+          <button class="nav-link" data-client-page data-page="requests" type="button">
             <i class="bi bi-journal-check"></i><span>My Requests</span>
           </button>
-          <button class="nav-link" data-page="billing" type="button">
+          <button class="nav-link" data-client-page data-page="billing" type="button">
             <i class="bi bi-receipt"></i><span>Invoices</span>
           </button>
-          <button class="nav-link" data-page="billing" type="button">
-            <i class="bi bi-credit-card"></i><span>Payments</span>
-          </button>
-          <button class="nav-link" data-page="support" type="button">
+          <button class="nav-link" data-client-page data-page="support" type="button">
             <i class="bi bi-life-preserver"></i><span>Support</span>
           </button>
-          <button class="nav-link" data-page="notifications" type="button">
+          <button class="nav-link" data-client-page data-page="notifications" type="button">
             <i class="bi bi-bell"></i><span>Notifications</span>
           </button>
-          <button class="nav-link" data-page="documents" type="button">
+          <button class="nav-link" data-client-page data-page="documents" type="button">
             <i class="bi bi-folder2-open"></i><span>Documents</span>
           </button>
-          <button class="nav-link" data-page="profile" type="button">
+          <button class="nav-link" data-client-page data-page="profile" type="button">
             <i class="bi bi-person-circle"></i><span>Profile</span>
           </button>
-          <button class="nav-link" data-page="settings" type="button">
+          <button class="nav-link" data-client-page data-page="settings" type="button">
             <i class="bi bi-gear"></i><span>Settings</span>
+          </button>
+          <button class="nav-link" data-page="messages" type="button">
+            <i class="bi bi-chat-dots"></i><span>Messages</span>
+          </button>
+          <button class="nav-link" data-role-page="admin" data-page="admin" type="button" hidden>
+            <i class="bi bi-speedometer2"></i><span>Overview</span>
+          </button>
+          <button class="nav-link" data-role-page="admin" data-page="clients" type="button" hidden>
+            <i class="bi bi-people"></i><span>Clients</span>
+          </button>
+          <button class="nav-link" data-role-page="admin" data-page="services" type="button" hidden>
+            <i class="bi bi-box-seam"></i><span>Services</span>
+          </button>
+          <button class="nav-link" data-role-page="admin" data-page="requests-admin" type="button" hidden>
+            <i class="bi bi-journal-check"></i><span>Requests</span>
+          </button>
+          <button class="nav-link" data-role-page="admin" data-page="communications" type="button" hidden>
+            <i class="bi bi-megaphone"></i><span>Communications</span>
+          </button>
+          <button class="nav-link" data-role-page="admin" data-page="reports" type="button" hidden>
+            <i class="bi bi-file-earmark-bar-graph"></i><span>Reports</span>
+          </button>
+          <button class="nav-link" data-role-page="admin" data-page="admin-notifications" type="button" hidden>
+            <i class="bi bi-bell"></i><span>Notifications</span>
+          </button>
+          <button class="nav-link" data-role-page="admin" data-page="activity" type="button" hidden>
+            <i class="bi bi-clock-history"></i><span>Activity log</span>
+          </button>
+          <button class="nav-link" data-role-page="admin" data-page="admin-profile" type="button" hidden>
+            <i class="bi bi-person-gear"></i><span>Admin profile</span>
+          </button>
+          <button class="nav-link" data-role-page="superadmin" data-page="superadmin" type="button" hidden>
+            <i class="bi bi-shield-lock"></i><span>Overview</span>
           </button>
         </nav>
 
         <div class="sidebar-footer">
-          <button class="nav-link logout-link" type="button">
+          <button class="nav-link logout-link" id="logoutButton" type="button">
             <i class="bi bi-box-arrow-right"></i><span>Logout</span>
           </button>
         </div>
@@ -83,9 +154,9 @@
           <button class="icon-btn mobile-toggle" id="mobileToggle" type="button" aria-label="Open navigation">
             <i class="bi bi-list"></i>
           </button>
-          <label class="search-box" aria-label="Search the portal">
+          <label class="search-box" aria-label="Search services" data-client-page>
             <i class="bi bi-search"></i>
-            <input id="globalSearch" type="search" placeholder="Search requests, invoices, support..." />
+            <input id="globalSearch" type="search" placeholder="Search services..." />
           </label>
 
           <div class="topbar-actions">
@@ -93,15 +164,15 @@
             <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">
               <i class="bi bi-sun"></i>
             </button>
-            <button class="icon-btn" id="notificationsToggle" type="button" aria-label="Open notifications">
+            <button class="icon-btn" id="notificationsToggle" type="button" aria-label="Open notifications" aria-expanded="false" data-client-page>
               <i class="bi bi-bell"></i>
               <span class="badge-dot" id="notificationBadge">0</span>
             </button>
             <div class="profile-pill">
               <div class="avatar">AJ</div>
               <div>
-                <strong>Ahmad Jidda</strong>
-                <p>Premium Client</p>
+                <strong id="profileName">Client account</strong>
+                <p>Client account</p>
               </div>
             </div>
           </div>
@@ -109,49 +180,50 @@
 
         <!-- Portal page content -->
         <main class="content-area">
-          <section class="page active" id="page-dashboard">
+          <section class="page active" id="page-dashboard" data-client-page>
             <div class="hero-card">
               <div>
-                <p class="eyebrow">Enterprise client service portal</p>
-                <h1>Welcome back, Ahmad Jidda</h1>
-                <p>Track every solution request, payment, support ticket, and project milestone from one premium workspace.</p>
+                <p class="eyebrow">AJ Tech Solutions client portal</p>
+                <h1>Your technology projects, in one place</h1>
+                <p>Submit a service request and follow its progress. Your account information and project updates belong in one clear, dependable workspace.</p>
               </div>
               <div class="hero-actions">
                 <button class="btn btn-primary" id="requestServiceHero" type="button">Request Service</button>
-                <button class="btn btn-ghost" id="downloadInvoiceHero" type="button">Download Invoice</button>
+                <button class="btn btn-ghost" id="browseServicesHero" type="button">Explore services</button>
               </div>
             </div>
 
             <div class="stats-grid">
               <article class="metric-card">
-                <div class="metric-label">Active Services</div>
-                <div class="metric-value" data-target="4">0</div>
-                <div class="metric-foot">2 in progress</div>
+                <div class="metric-label">Active Requests</div>
+                <div class="metric-value" data-metric="active">0</div>
+                <div class="metric-foot">Currently in progress</div>
               </article>
               <article class="metric-card">
                 <div class="metric-label">Pending Requests</div>
-                <div class="metric-value" data-target="3">0</div>
-                <div class="metric-foot">1 needs review</div>
+                <div class="metric-value" data-metric="pending">0</div>
+                <div class="metric-foot">Awaiting action or review</div>
               </article>
               <article class="metric-card">
                 <div class="metric-label">Completed Requests</div>
-                <div class="metric-value" data-target="7">0</div>
-                <div class="metric-foot">93% satisfaction</div>
+                <div class="metric-value" data-metric="completed">0</div>
+                <div class="metric-foot">Successfully delivered</div>
               </article>
               <article class="metric-card">
-                <div class="metric-label">Open Tickets</div>
-                <div class="metric-value" data-target="2">0</div>
-                <div class="metric-foot">Average response 15m</div>
+                <div class="metric-label">Open Support Requests</div>
+                <div class="metric-value" data-metric="tickets">0</div>
+                <div class="metric-foot">Support requests needing attention</div>
               </article>
             </div>
 
             <div class="content-grid">
-              <section class="panel panel-large">
+              <section class="panel">
                 <div class="panel-head">
                   <h2>Service progress</h2>
-                  <span class="chip chip-success">Live</span>
+                  <span class="chip">Your requests</span>
                 </div>
-                <canvas id="progressChart" height="180"></canvas>
+                <p class="empty-state" id="progressChartEmpty" hidden>Your request status breakdown will appear here after you submit a request.</p>
+                <div class="service-progress" id="progressChart" aria-live="polite"></div>
               </section>
               <section class="panel">
                 <div class="panel-head">
@@ -171,13 +243,10 @@
                   <button class="action-card" type="button" data-open-service-modal>
                     <i class="bi bi-plus-circle"></i><span>Request Service</span>
                   </button>
-                  <button class="action-card" type="button">
-                    <i class="bi bi-chat-dots"></i><span>Open Ticket</span>
+                  <button class="action-card" type="button" data-open-service-modal data-service-name="Technical Support">
+                    <i class="bi bi-chat-dots"></i><span>Request Support</span>
                   </button>
-                  <button class="action-card" type="button">
-                    <i class="bi bi-download"></i><span>Download Invoice</span>
-                  </button>
-                  <button class="action-card" type="button">
+                  <button class="action-card" type="button" data-open-page="support">
                     <i class="bi bi-headset"></i><span>Contact Support</span>
                   </button>
                 </div>
@@ -191,7 +260,7 @@
             </div>
           </section>
 
-          <section class="page" id="page-catalog">
+          <section class="page" id="page-catalog" data-client-page>
             <div class="section-head">
               <div>
                 <p class="eyebrow">Service catalog</p>
@@ -202,7 +271,7 @@
             <div class="services-grid" id="servicesGrid"></div>
           </section>
 
-          <section class="page" id="page-requests">
+          <section class="page" id="page-requests" data-client-page>
             <div class="section-head">
               <div>
                 <p class="eyebrow">My requests</p>
@@ -244,7 +313,7 @@
             </div>
           </section>
 
-          <section class="page" id="page-billing">
+          <section class="page" id="page-billing" data-client-page>
             <div class="section-head">
               <div>
                 <p class="eyebrow">Billing</p>
@@ -267,7 +336,7 @@
             </div>
           </section>
 
-          <section class="page" id="page-support">
+          <section class="page" id="page-support" data-client-page>
             <div class="section-head">
               <div>
                 <p class="eyebrow">Support and profile</p>
@@ -277,20 +346,18 @@
             <div class="content-grid">
               <section class="panel">
                 <div class="panel-head">
-                  <h2>Open tickets</h2>
-                  <button class="text-btn" type="button">New ticket</button>
+                  <h2>Support requests</h2>
+                  <button class="text-btn" type="button" data-open-service-modal data-service-name="Technical Support">New support request</button>
                 </div>
                 <div id="ticketsList"></div>
               </section>
               <section class="panel">
                 <div class="panel-head">
-                  <h2>Support chat</h2>
-                  <span class="chip">Online</span>
+                  <h2>Contact support</h2>
                 </div>
                 <div class="chat-card">
-                  <div class="chat-message inbound">Hello Ahmad, your service update has been reviewed.</div>
-                  <div class="chat-message outbound">Perfect. Please share the revised timeline.</div>
-                  <div class="chat-message inbound">Absolutely, I will attach the revised plan shortly.</div>
+                  <p class="empty-state">Have a question? Send a message to the AJ Tech Solutions team.</p>
+                  <button class="btn btn-primary" type="button" data-open-page="messages">Open messages</button>
                 </div>
               </section>
             </div>
@@ -309,21 +376,19 @@
                   <div class="profile-identity">
                     <div class="avatar large">AJ</div>
                     <div>
-                      <h3>Ahmad Jidda</h3>
-                      <p>C.E.O, AJ Tech Solutions</p>
+                      <h3 id="supportProfileName">Client account</h3>
+                      <p>Client account</p>
                     </div>
                   </div>
                   <div class="profile-meta">
-                    <div><span>Email</span><strong>ahmad@gmail.com</strong></div>
-                    <div><span>Phone</span><strong>+234 9018661304</strong></div>
-                    <div><span>Address</span><strong>7 Alhajiyel Plaza, Gombe</strong></div>
+                    <div><span>Account email</span><strong id="supportProfileEmail">Sign in to view account details</strong></div>
                   </div>
                 </div>
               </section>
             </div>
           </section>
 
-          <section class="page" id="page-notifications">
+          <section class="page" id="page-notifications" data-client-page>
             <div class="section-head">
               <div>
                 <p class="eyebrow">Notifications</p>
@@ -333,12 +398,13 @@
             <section class="panel">
               <div class="panel-head">
                 <h2>Latest alerts</h2>
+                <button class="text-btn" id="markAllNotificationsRead" type="button">Mark all as read</button>
               </div>
               <div id="notificationCenterList"></div>
             </section>
           </section>
 
-          <section class="page" id="page-documents">
+          <section class="page" id="page-documents" data-client-page>
             <div class="section-head">
               <div>
                 <p class="eyebrow">Documents</p>
@@ -353,7 +419,7 @@
             </section>
           </section>
 
-          <section class="page" id="page-profile">
+          <section class="page" id="page-profile" data-client-page>
             <div class="section-head">
               <div>
                 <p class="eyebrow">Profile</p>
@@ -366,22 +432,22 @@
               </div>
               <div class="profile-card wide">
                 <div class="profile-identity">
-                  <div class="avatar large">JD</div>
+                  <div class="avatar large">AJ</div>
                   <div>
-                    <h3>Ahmad Jidda</h3>
-                    <p>C.E.O • AJ Tech Solutions</p>
+                    <h3 id="accountProfileName">Client account</h3>
+                    <p>Client account</p>
                   </div>
                 </div>
                 <div class="profile-meta">
-                  <div><span>Company</span><strong>AJ Tech Solutions</strong></div>
-                  <div><span>Business type</span><strong>Technology Services</strong></div>
-                  <div><span>Notification settings</span><strong>Emails + In-app alerts</strong></div>
+                  <div><span>Account email</span><strong id="accountProfileEmail">Sign in to view account details</strong></div>
+                  <div><span>Service provider</span><strong>AJ Tech Solutions</strong></div>
+                  <div><span>Account access</span><strong>Protected client workspace</strong></div>
                 </div>
               </div>
             </section>
           </section>
 
-          <section class="page" id="page-settings">
+          <section class="page" id="page-settings" data-client-page>
             <div class="section-head">
               <div>
                 <p class="eyebrow">Settings</p>
@@ -393,10 +459,491 @@
                 <h2>Preferences</h2>
               </div>
               <div class="settings-list">
-                <div class="setting-row"><span>Dark mode</span><span class="chip">Enabled</span></div>
-                <div class="setting-row"><span>Notifications</span><span class="chip">Personalized</span></div>
-                <div class="setting-row"><span>Two-step verification</span><span class="chip chip-success">Active</span></div>
+                <div class="setting-row"><span>Color theme</span><span class="chip" id="themePreference">Dark</span></div>
+                <div class="setting-row"><span>Notifications</span><span class="chip">In-app updates</span></div>
+                <div class="setting-row"><span>Two-step verification</span><span class="chip">Not configured</span></div>
               </div>
+            </section>
+          </section>
+
+          <section class="page" id="page-messages">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Private conversations</p>
+                <h1>Messages</h1>
+              </div>
+            </div>
+            <div class="chat-layout">
+              <section class="panel chat-contacts-panel">
+                <div class="panel-head"><h2>Conversations</h2></div>
+                <div class="chat-contacts" id="chatContacts"></div>
+              </section>
+              <section class="panel chat-conversation">
+                <div class="panel-head">
+                  <h2 id="chatContactName">Select a conversation</h2>
+                </div>
+                <div class="chat-messages" id="chatMessages" aria-live="polite">
+                  <p class="empty-state">Choose a contact to view messages.</p>
+                </div>
+                <form class="chat-compose" id="chatForm">
+                  <label class="sr-only" for="chatInput">Write a message</label>
+                  <textarea id="chatInput" name="body" rows="2" maxlength="2000" placeholder="Write a message…" required disabled></textarea>
+                  <button class="btn btn-primary" type="submit" disabled>Send</button>
+                </form>
+              </section>
+            </div>
+          </section>
+
+          <section class="page" id="page-admin" data-role-page="admin">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Admin workspace</p>
+                <h1>Dashboard overview</h1>
+              </div>
+              <button class="btn btn-primary" type="button" data-open-page="communications">Notify clients</button>
+            </div>
+            <section class="panel admin-date-filter">
+              <label><span>From</span><input id="adminDateFrom" type="date" /></label>
+              <label><span>To</span><input id="adminDateTo" type="date" /></label>
+              <button class="btn btn-ghost" id="refreshAdminOverview" type="button">Apply dates</button>
+            </section>
+            <div class="stats-grid admin-stats-grid">
+              <article class="metric-card"><div class="metric-label">Registered clients</div><div class="metric-value" id="adminTotalClients">0</div></article>
+              <article class="metric-card"><div class="metric-label">Active clients</div><div class="metric-value" id="adminActiveClients">0</div></article>
+              <article class="metric-card"><div class="metric-label">Inactive clients</div><div class="metric-value" id="adminInactiveClients">0</div></article>
+              <article class="metric-card"><div class="metric-label">Pending requests</div><div class="metric-value" id="adminPendingRequests">0</div></article>
+              <article class="metric-card"><div class="metric-label">Approved requests</div><div class="metric-value" id="adminApprovedRequests">0</div></article>
+              <article class="metric-card"><div class="metric-label">Rejected requests</div><div class="metric-value" id="adminRejectedRequests">0</div></article>
+              <article class="metric-card"><div class="metric-label">Completed requests</div><div class="metric-value" id="adminCompletedRequests">0</div></article>
+              <article class="metric-card"><div class="metric-label">Available services</div><div class="metric-value" id="adminAvailableServices">0</div></article>
+              <article class="metric-card"><div class="metric-label">Overdue requests</div><div class="metric-value" id="adminOverdueRequests">0</div></article>
+              <article class="metric-card"><div class="metric-label">Registrations in range</div><div class="metric-value" id="adminRangeRegistrations">0</div></article>
+              <article class="metric-card"><div class="metric-label">Requests in range</div><div class="metric-value" id="adminRangeRequests">0</div></article>
+            </div>
+            <div class="content-grid">
+              <section class="panel">
+                <div class="panel-head"><h2>Recent activity</h2><button class="text-btn" type="button" data-open-page="activity">View log</button></div>
+                <div id="adminRecentActivity"></div>
+              </section>
+              <section class="panel">
+                <div class="panel-head"><h2>Notifications</h2><button class="text-btn" type="button" data-open-page="admin-notifications">View all</button></div>
+                <div id="adminRecentNotifications"></div>
+              </section>
+            </div>
+          </section>
+
+          <section class="page" id="page-clients" data-role-page="admin">
+            <div class="section-head"><div><p class="eyebrow">Account management</p><h1>Clients</h1></div></div>
+            <section class="panel">
+              <div class="admin-filter-row">
+                <label><span>Search name, email or phone</span><input id="clientSearch" type="search" /></label>
+                <label><span>Status</span><select id="clientStatusFilter"><option value="">All clients</option><option value="active">Active</option><option value="inactive">Inactive / suspended</option></select></label>
+                <label><span>Sort by</span><select id="clientSort"><option value="registered">Registration date</option><option value="name">Name</option><option value="email">Email</option><option value="lastLogin">Last login</option></select></label>
+                <button class="btn btn-ghost" id="refreshClients" type="button">Search</button>
+              </div>
+              <div class="table-wrap"><table class="table-modern"><thead><tr><th>Client</th><th>Email</th><th>Phone</th><th>Status</th><th>Registered</th><th>Last login</th><th></th></tr></thead><tbody id="clientsTable"></tbody></table></div>
+            </section>
+            <section class="panel admin-editor" id="clientEditor" hidden>
+              <div class="panel-head"><h2 id="clientEditorTitle">Client profile</h2><button class="text-btn" id="closeClientEditor" type="button">Close</button></div>
+              <div class="detail-grid" id="clientProfileDetails"></div>
+              <form id="clientEditForm" class="admin-form">
+                <input type="hidden" name="id" />
+                <label><span>Full name</span><input name="fullName" maxlength="100" required /></label>
+                <label><span>Email</span><input name="email" type="email" required /></label>
+                <label><span>Phone</span><input name="phone" maxlength="40" /></label>
+                <label><span>Account status</span><select name="isActive"><option value="true">Active</option><option value="false">Inactive / suspended</option></select></label>
+                <label><span>Suspension reason</span><input name="suspendedReason" maxlength="500" /></label>
+                <button class="btn btn-primary" type="submit">Save client</button>
+              </form>
+              <div class="panel-head"><h3>Request history</h3></div><div id="clientRequestHistory"></div>
+              <div class="panel-head"><h3>Login history</h3></div><div id="clientLoginHistory"></div>
+            </section>
+          </section>
+
+          <section class="page" id="page-services" data-role-page="admin">
+            <div class="section-head"><div><p class="eyebrow">Catalog administration</p><h1>Services</h1></div><button class="btn btn-primary" id="newServiceButton" type="button">Add service</button></div>
+            <section class="panel admin-editor" id="serviceEditor" hidden>
+              <div class="panel-head"><h2 id="serviceEditorTitle">Add service</h2><button class="text-btn" id="closeServiceEditor" type="button">Close</button></div>
+              <form id="serviceForm" class="admin-form">
+                <input type="hidden" name="id" />
+                <label><span>Name</span><input name="name" maxlength="120" required /></label>
+                <label><span>Category</span><input name="category" maxlength="80" required /></label>
+                <label class="wide-field"><span>Description</span><textarea name="description" rows="3" maxlength="2000" required></textarea></label>
+                <label><span>Price / pricing note</span><input name="price" maxlength="80" placeholder="Contact us for a quote" /></label>
+                <label><span>Availability</span><select name="isAvailable"><option value="true">Available</option><option value="false">Unavailable</option></select></label>
+                <label><span>Publication</span><select name="isPublished"><option value="true">Published</option><option value="false">Unpublished</option></select></label>
+                <button class="btn btn-primary" type="submit">Save service</button>
+              </form>
+              <form id="serviceImageForm" class="admin-form upload-form" hidden>
+                <input type="hidden" name="id" />
+                <label><span>Service image (PNG, JPEG or WebP; max 5 MB)</span><input name="image" type="file" accept="image/png,image/jpeg,image/webp" required /></label>
+                <button class="btn btn-ghost" type="submit">Upload image</button>
+              </form>
+            </section>
+            <section class="panel"><div class="table-wrap"><table class="table-modern"><thead><tr><th>Service</th><th>Category</th><th>Price</th><th>Availability</th><th>Published</th><th></th></tr></thead><tbody id="servicesTable"></tbody></table></div></section>
+          </section>
+
+          <section class="page" id="page-requests-admin" data-role-page="admin">
+            <div class="section-head"><div><p class="eyebrow">Client work</p><h1>Service requests</h1></div></div>
+            <section class="panel">
+              <div class="admin-filter-row">
+                <label><span>Status</span><select id="requestStatusFilter"><option value="">All statuses</option><option>New</option><option>Pending</option><option>Approved</option><option>Rejected</option><option>In Progress</option><option>Completed</option></select></label>
+                <label><span>From</span><input id="requestDateFrom" type="date" /></label><label><span>To</span><input id="requestDateTo" type="date" /></label>
+                <button class="btn btn-ghost" id="refreshAdminRequests" type="button">Filter</button>
+              </div>
+              <div class="table-wrap"><table class="table-modern"><thead><tr><th>Request</th><th>Client</th><th>Service</th><th>Status</th><th>Priority</th><th>Received</th><th></th></tr></thead><tbody id="staffRequests"></tbody></table></div>
+            </section>
+            <section class="panel admin-editor" id="requestEditor" hidden>
+              <div class="panel-head"><h2 id="requestEditorTitle">Request details</h2><button class="text-btn" id="closeRequestEditor" type="button">Close</button></div>
+              <div class="detail-grid" id="requestProfileDetails"></div>
+              <form id="requestUpdateForm" class="admin-form">
+                <input type="hidden" name="id" />
+                <label><span>Status</span><select name="status"><option>New</option><option>Pending</option><option>Approved</option><option>Rejected</option><option>In Progress</option><option>Completed</option></select></label>
+                <label><span>Progress (0-100%)</span><input name="progress" type="number" min="0" max="100" required /></label>
+                <label><span>Assigned administrator</span><select name="assignedTo"><option value="">Unassigned</option></select></label>
+                <button class="btn btn-primary" type="submit">Update request</button>
+              </form>
+              <form id="requestNoteForm" class="admin-form">
+                <label class="wide-field"><span>Internal note / client update</span><textarea name="body" rows="3" maxlength="2000" required></textarea></label>
+                <label><span>Visibility</span><select name="isInternal"><option value="true">Internal note</option><option value="false">Send to client</option></select></label>
+                <button class="btn btn-ghost" type="submit">Add note</button>
+              </form>
+              <div class="panel-head"><h3>Request history</h3></div><div id="requestHistory"></div>
+              <div class="panel-head"><h3>Notes</h3></div><div id="requestNotes"></div>
+            </section>
+          </section>
+
+          <section class="page" id="page-communications" data-role-page="admin">
+            <div class="section-head"><div><p class="eyebrow">Client communication</p><h1>Notifications and announcements</h1></div></div>
+            <section class="panel"><form id="adminNotificationForm" class="admin-form">
+              <label><span>Client recipient</span><select name="clientId" id="notificationClient"><option value="">Choose a client</option></select></label>
+              <label><span>Send to all active clients</span><select name="announcement"><option value="false">No, send to selected client</option><option value="true">Yes, publish announcement</option></select></label>
+              <label class="wide-field"><span>Title</span><input name="title" maxlength="200" required /></label>
+              <label class="wide-field"><span>Message</span><textarea name="body" rows="4" maxlength="2000"></textarea></label>
+              <button class="btn btn-primary" type="submit">Send notification</button>
+            </form></section>
+          </section>
+
+          <section class="page" id="page-reports" data-role-page="admin">
+            <div class="section-head"><div><p class="eyebrow">Date-filtered exports</p><h1>Reports</h1></div></div>
+            <section class="panel"><form id="reportForm" class="admin-filter-row">
+              <label><span>Report</span><select name="type"><option value="clients">Client registrations</option><option value="requests">All service requests</option><option value="completed">Completed requests</option><option value="pending">Pending requests</option><option value="monthly">Monthly requests</option><option value="yearly">Yearly requests</option></select></label>
+              <label><span>From</span><input name="from" type="date" /></label><label><span>To</span><input name="to" type="date" /></label>
+              <button class="btn btn-ghost" type="button" data-report-format="pdf">Export PDF</button><button class="btn btn-primary" type="button" data-report-format="xlsx">Export Excel</button>
+            </form></section>
+          </section>
+
+          <section class="page" id="page-admin-notifications" data-role-page="admin">
+            <div class="section-head"><div><p class="eyebrow">Admin inbox</p><h1>Notifications</h1></div></div>
+            <section class="panel"><div id="adminNotifications"></div></section>
+          </section>
+
+          <section class="page" id="page-activity" data-role-page="admin">
+            <div class="section-head"><div><p class="eyebrow">Administrative audit trail</p><h1>Activity log</h1></div></div>
+            <section class="panel"><div id="adminActivityLog"></div></section>
+          </section>
+
+          <section class="page" id="page-admin-profile" data-role-page="admin">
+            <div class="section-head"><div><p class="eyebrow">Personal settings</p><h1>Admin profile</h1></div></div>
+            <section class="panel">
+              <img id="adminProfilePreview" class="avatar large admin-profile-preview" alt="Admin profile picture" hidden />
+              <form id="adminProfileForm" class="admin-form">
+                <label><span>Full name</span><input name="fullName" maxlength="100" required /></label>
+                <label><span>Email</span><input name="email" type="email" required /></label>
+                <label><span>Phone</span><input name="phone" maxlength="40" /></label>
+                <label><span>Current password (required to change password)</span><input name="currentPassword" type="password" autocomplete="current-password" /></label>
+                <label><span>New password (12+ characters)</span><input name="newPassword" type="password" minlength="12" maxlength="128" autocomplete="new-password" /></label>
+                <button class="btn btn-primary" type="submit">Save profile</button>
+              </form>
+              <form id="adminProfileImageForm" class="admin-form upload-form">
+                <label><span>Profile image (PNG, JPEG or WebP; max 5 MB)</span><input name="image" type="file" accept="image/png,image/jpeg,image/webp" required /></label>
+                <button class="btn btn-ghost" type="submit">Upload profile picture</button>
+              </form>
+              <form id="adminPreferencesForm" class="admin-form">
+                <label><span>Email notifications (requires mail configuration)</span><select name="emailEnabled"><option value="false">Off</option><option value="true">On</option></select></label>
+                <label><span>In-app notifications</span><select name="inAppEnabled"><option value="true">On</option><option value="false">Off</option></select></label>
+                <button class="btn btn-ghost" type="submit">Save preferences</button>
+              </form>
+              <div class="panel-head"><h2>Login history</h2></div><div id="adminLoginHistory"></div>
+            </section>
+          </section>
+
+          <section class="page" id="page-superadmin" data-role-page="superadmin">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Super-admin workspace</p>
+                <h1>Platform management</h1>
+              </div>
+              <button class="btn btn-primary" type="button" data-open-page="messages">Message an admin</button>
+            </div>
+            <section class="panel admin-date-filter">
+              <label><span>From</span><input id="superadminDateFrom" type="date" /></label>
+              <label><span>To</span><input id="superadminDateTo" type="date" /></label>
+              <button class="btn btn-ghost" id="refreshSuperadminOverview" type="button">Apply dates</button>
+            </section>
+            <nav class="superadmin-tabs" aria-label="Platform management sections">
+              <button type="button" data-superadmin-tab="overview" class="active">Overview</button>
+              <button type="button" data-superadmin-tab="users">Users &amp; Admins</button>
+              <button type="button" data-superadmin-tab="permissions">Permissions</button>
+              <button type="button" data-superadmin-tab="services">Services</button>
+              <button type="button" data-superadmin-tab="requests">Requests</button>
+              <button type="button" data-superadmin-tab="content">Website content</button>
+              <button type="button" data-superadmin-tab="settings">System settings</button>
+              <button type="button" data-superadmin-tab="audit">Audit logs</button>
+              <button type="button" data-superadmin-tab="reports">Reports</button>
+              <button type="button" data-superadmin-tab="notifications">Notifications</button>
+              <button type="button" data-superadmin-tab="backups">Backups</button>
+              <button type="button" data-superadmin-tab="profile">My profile</button>
+            </nav>
+            <section class="superadmin-panel" id="superadminSection-overview">
+              <div class="stats-grid superadmin-stats">
+                <article class="metric-card"><div class="metric-label">Clients</div><div class="metric-value" id="superadminClients">0</div></article>
+                <article class="metric-card"><div class="metric-label">Administrators</div><div class="metric-value" id="superadminAdmins">0</div></article>
+                <article class="metric-card"><div class="metric-label">Super Admins</div><div class="metric-value" id="superadminSuperadmins">0</div></article>
+                <article class="metric-card"><div class="metric-label">Active users</div><div class="metric-value" id="superadminActiveUsers">0</div></article>
+                <article class="metric-card"><div class="metric-label">Suspended users</div><div class="metric-value" id="superadminSuspendedUsers">0</div></article>
+                <article class="metric-card"><div class="metric-label">Service requests</div><div class="metric-value" id="superadminTotalRequests">0</div></article>
+                <article class="metric-card"><div class="metric-label">Pending requests</div><div class="metric-value" id="superadminPendingRequests">0</div></article>
+                <article class="metric-card"><div class="metric-label">Approved requests</div><div class="metric-value" id="superadminApprovedRequests">0</div></article>
+                <article class="metric-card"><div class="metric-label">Rejected requests</div><div class="metric-value" id="superadminRejectedRequests">0</div></article>
+                <article class="metric-card"><div class="metric-label">Completed requests</div><div class="metric-value" id="superadminCompletedRequests">0</div></article>
+                <article class="metric-card"><div class="metric-label">Available services</div><div class="metric-value" id="superadminAvailableServices">0</div></article>
+                <article class="metric-card"><div class="metric-label">Registrations in range</div><div class="metric-value" id="superadminRangeRegistrations">0</div></article>
+                <article class="metric-card"><div class="metric-label">Requests in range</div><div class="metric-value" id="superadminRangeRequests">0</div></article>
+              </div>
+              <div class="content-grid">
+                <section class="panel"><div class="panel-head"><h2>Recent platform activity</h2></div><div id="superadminRecentActivity"></div></section>
+                <section class="panel"><div class="panel-head"><h2>Recent registrations</h2></div><div id="superadminRecentRegistrations"></div></section>
+              </div>
+              <section class="panel"><div class="panel-head"><h2>Monthly request activity</h2></div><div id="superadminRequestTrends"></div></section>
+            </section>
+
+            <section class="superadmin-panel" id="superadminSection-users" hidden>
+              <section class="panel">
+                <div class="admin-filter-row">
+                  <label><span>Search users</span><input id="superadminUserSearch" type="search" /></label>
+                  <label><span>Role</span><select id="superadminUserRole"><option value="">All roles</option><option value="client">Client</option><option value="admin">Admin</option><option value="superadmin">Super Admin</option></select></label>
+                  <label><span>Account status</span><select id="superadminUserStatus"><option value="">All statuses</option><option value="active">Active</option><option value="suspended">Suspended</option></select></label>
+                  <button class="btn btn-ghost" id="searchSuperadminUsers" type="button">Search</button>
+                </div>
+                <div class="table-wrap"><table class="table-modern"><thead><tr><th>User</th><th>Email</th><th>Role</th><th>Status</th><th>Registered</th><th>Last login</th><th></th></tr></thead><tbody id="superadminUsersTable"></tbody></table></div>
+              </section>
+              <section class="panel">
+                <h2>Provision a privileged account</h2>
+                <form id="superadminCreateAdminForm" class="admin-form">
+                  <label><span>Full name</span><input name="fullName" maxlength="100" required /></label>
+                  <label><span>Email</span><input name="email" type="email" required /></label>
+                  <label><span>Phone</span><input name="phone" maxlength="40" /></label>
+                  <label><span>Account role</span><select name="role"><option value="admin">Admin</option><option value="superadmin">Super Admin</option></select></label>
+                  <label id="superadminInitialPasswordLabel" hidden><span>Initial Super Admin password (optional)</span><input name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" /></label>
+                  <button class="btn btn-primary" type="submit">Create account</button>
+                </form>
+                <p id="superadminTemporaryPassword" class="setting-row" role="status" hidden></p>
+              </section>
+              <section class="panel">
+                <div class="panel-head"><h2>Admin access requests</h2><button class="text-btn" id="refreshSuperadminAccountRequests" type="button">Refresh</button></div>
+                <p>Requests remain pending until an active Super Admin approves them. Approved users receive a one-time password and must change it at first sign-in.</p>
+                <div class="table-wrap"><table class="table-modern"><thead><tr><th>Applicant</th><th>Email</th><th>Phone</th><th>Requested</th><th></th></tr></thead><tbody id="superadminAccountRequestsTable"></tbody></table></div>
+              </section>
+              <section class="panel admin-editor" id="superadminUserEditor" hidden>
+                <div class="panel-head"><h2 id="superadminUserEditorTitle">User profile</h2><button class="text-btn" id="closeSuperadminUserEditor" type="button">Close</button></div>
+                <form id="superadminUserForm" class="admin-form">
+                  <input name="id" type="hidden" />
+                  <label><span>Full name</span><input name="fullName" maxlength="100" required /></label>
+                  <label><span>Email</span><input name="email" type="email" required /></label>
+                  <label><span>Phone</span><input name="phone" maxlength="40" /></label>
+                  <label><span>Role</span><select name="role"><option value="client">Client</option><option value="admin">Admin</option><option value="superadmin">Super Admin</option></select></label>
+                  <label><span>Status</span><select name="isActive"><option value="true">Active</option><option value="false">Suspended</option></select></label>
+                  <label><span>Suspension reason</span><input name="suspendedReason" maxlength="500" /></label>
+                  <button class="btn btn-primary" type="submit">Save user</button>
+                  <button class="btn btn-ghost" id="resetSuperadminUserPassword" type="button">Reset password</button>
+                </form>
+                <div id="superadminUserDetails"></div>
+              </section>
+              <section class="panel"><div class="panel-head"><h2>Administrator performance</h2></div><div class="table-wrap"><table class="table-modern"><thead><tr><th>Administrator</th><th>Assigned requests</th><th>Completed</th><th>Open</th><th></th></tr></thead><tbody id="superadminAdminPerformance"></tbody></table></div></section>
+            </section>
+
+            <section class="superadmin-panel" id="superadminSection-permissions" hidden>
+              <section class="panel">
+                <h2>Administrator module permissions</h2>
+                <form id="superadminPermissionsForm" class="admin-form">
+                  <label><span>Administrator</span><select name="adminId" id="superadminPermissionAdmin" required></select></label>
+                  <label class="permission-option"><input type="checkbox" name="overview" checked /><span>Overview</span></label>
+                  <label class="permission-option"><input type="checkbox" name="clients" checked /><span>Client management</span></label>
+                  <label class="permission-option"><input type="checkbox" name="services" checked /><span>Service management</span></label>
+                  <label class="permission-option"><input type="checkbox" name="requests" checked /><span>Request management</span></label>
+                  <label class="permission-option"><input type="checkbox" name="communications" checked /><span>Communications</span></label>
+                  <label class="permission-option"><input type="checkbox" name="reports" checked /><span>Reports</span></label>
+                  <label class="permission-option"><input type="checkbox" name="notifications" checked /><span>Notifications</span></label>
+                  <label class="permission-option"><input type="checkbox" name="activity" checked /><span>Activity logs</span></label>
+                  <label class="permission-option"><input type="checkbox" name="profile" checked /><span>Profile</span></label>
+                  <button class="btn btn-primary" type="submit">Save permissions</button>
+                </form>
+              </section>
+            </section>
+
+            <section class="superadmin-panel" id="superadminSection-services" hidden>
+              <section class="panel">
+                <div class="panel-head"><h2>Service catalog</h2><button class="btn btn-primary" id="addSuperadminService" type="button">Add new service</button></div>
+                <div class="table-wrap"><table class="table-modern"><thead><tr><th>Service</th><th>Category</th><th>Price</th><th>Availability</th><th>Published</th><th>Status</th><th></th></tr></thead><tbody id="superadminServicesTable"></tbody></table></div>
+                <form id="superadminServiceForm" class="admin-form">
+                  <input name="id" type="hidden" />
+                  <h3 class="wide-field" id="superadminServiceEditorHeading">Add a service</h3>
+                  <label><span>Name</span><input name="name" maxlength="120" required /></label>
+                  <label><span>Category</span><input name="category" maxlength="80" required /></label>
+                  <label class="wide-field"><span>Description</span><textarea name="description" maxlength="2000" required></textarea></label>
+                  <label><span>Price</span><input name="price" maxlength="80" /></label>
+                  <label><span>Availability</span><select name="isAvailable"><option value="true">Available</option><option value="false">Unavailable</option></select></label>
+                  <label><span>Publication</span><select name="isPublished"><option value="true">Published</option><option value="false">Unpublished</option></select></label>
+                  <button class="btn btn-primary" type="submit">Add service</button>
+                  <button class="btn btn-ghost" id="cancelSuperadminServiceEdit" type="button">Clear form</button>
+                </form>
+                <form id="superadminServiceImageForm" class="admin-form upload-form">
+                  <label><span>Service image (PNG, JPEG or WebP; max 5 MB)</span><input name="image" type="file" accept="image/png,image/jpeg,image/webp" required /></label>
+                  <button class="btn btn-ghost" type="submit">Upload image for selected service</button>
+                </form>
+              </section>
+            </section>
+
+            <section class="superadmin-panel" id="superadminSection-requests" hidden>
+              <section class="panel">
+                <div class="admin-filter-row">
+                  <label><span>Status</span><select id="superadminRequestStatus"><option value="">All statuses</option><option>New</option><option>Pending</option><option>Approved</option><option>Rejected</option><option>In Progress</option><option>Completed</option></select></label>
+                  <button class="btn btn-ghost" id="refreshSuperadminRequests" type="button">Refresh requests</button>
+                </div>
+                <div class="table-wrap"><table class="table-modern"><thead><tr><th>Request</th><th>Client</th><th>Service</th><th>Status</th><th>Assigned Admin</th><th>Progress</th><th></th></tr></thead><tbody id="superadminRequestsTable"></tbody></table></div>
+                <section class="admin-editor" id="superadminRequestEditor" hidden>
+                  <div class="panel-head"><h2 id="superadminRequestEditorTitle">Request details</h2></div>
+                  <div id="superadminRequestDetails"></div>
+                  <form id="superadminRequestForm" class="admin-form">
+                    <input type="hidden" name="id" />
+                    <label><span>Status</span><select name="status"><option>New</option><option>Pending</option><option>Approved</option><option>Rejected</option><option>In Progress</option><option>Completed</option></select></label>
+                    <label><span>Progress (0-100%)</span><input name="progress" type="number" min="0" max="100" required /></label>
+                    <label><span>Assigned administrator</span><select name="assignedTo"></select></label>
+                    <button class="btn btn-primary" type="submit">Update request</button>
+                  </form>
+                  <form id="superadminRequestNoteForm" class="admin-form">
+                    <label class="wide-field"><span>Internal note / client update</span><textarea name="body" maxlength="2000" required></textarea></label>
+                    <label><span>Visibility</span><select name="isInternal"><option value="true">Internal note</option><option value="false">Send to client</option></select></label>
+                    <button class="btn btn-ghost" type="submit">Add note</button>
+                  </form>
+                  <h3>Request history</h3><div id="superadminRequestHistory"></div>
+                  <h3>Notes</h3><div id="superadminRequestNotes"></div>
+                </section>
+              </section>
+            </section>
+
+            <section class="superadmin-panel" id="superadminSection-content" hidden>
+              <section class="panel">
+                <h2>Website content and company profile</h2>
+                <form id="superadminContentForm" class="admin-form">
+                  <label><span>Company name</span><input name="company_name" maxlength="200" /></label>
+                  <label><span>Homepage headline</span><input name="hero_headline" maxlength="200" /></label>
+                  <label class="wide-field"><span>Homepage introduction</span><textarea name="hero_intro" maxlength="2000"></textarea></label>
+                  <label class="wide-field"><span>About us</span><textarea name="about_text" maxlength="10000"></textarea></label>
+                  <label><span>Contact email</span><input name="contact_email" type="email" maxlength="254" /></label>
+                  <label><span>Contact phone</span><input name="contact_phone" maxlength="80" /></label>
+                  <label><span>Contact address</span><input name="contact_address" maxlength="500" /></label>
+                  <label><span>Announcement banner text</span><textarea name="announcement" maxlength="2000"></textarea></label>
+                  <label class="wide-field"><span>FAQs (JSON array of question/answer pairs)</span><textarea name="faq_json" rows="5" maxlength="10000" placeholder='[{"question":"How do I request a service?","answer":"Sign in and submit a request."}]'></textarea></label>
+                  <label><span>Published on public/client portal</span><select name="published"><option value="true">Published</option><option value="false">Draft / hidden</option></select></label>
+                  <button class="btn btn-primary" type="submit">Save website content</button>
+                </form>
+                <form id="superadminBrandImageForm" class="admin-form upload-form">
+                  <label><span>Brand image (PNG, JPEG or WebP; max 5 MB)</span><input name="image" type="file" accept="image/png,image/jpeg,image/webp" required /></label>
+                  <label><span>Image use</span><select name="key"><option value="company_logo">Company logo</option><option value="banner_image">Homepage banner</option></select></label>
+                  <button class="btn btn-ghost" type="submit">Upload brand image</button>
+                </form>
+                <div id="superadminFaqPreview"></div>
+              </section>
+            </section>
+
+            <section class="superadmin-panel" id="superadminSection-settings" hidden>
+              <section class="panel">
+                <h2>System and security settings</h2>
+                <div id="superadminSystemStatus" class="detail-grid"></div>
+                <form id="superadminSettingsForm" class="admin-form">
+                  <label><span>Maintenance mode</span><select name="maintenanceMode"><option value="false">Off</option><option value="true">On</option></select></label>
+                  <label><span>Minimum password length (12-128)</span><input name="passwordMinLength" type="number" min="12" max="128" required /></label>
+                  <label><span>Session timeout in minutes (15-10,080)</span><input name="sessionTimeoutMinutes" type="number" min="15" max="10080" required /></label>
+                  <button class="btn btn-primary" type="submit">Save system settings</button>
+                </form>
+              </section>
+            </section>
+
+            <section class="superadmin-panel" id="superadminSection-audit" hidden>
+              <section class="panel">
+                <div class="admin-filter-row">
+                  <label><span>Search action, user, IP or details</span><input id="superadminAuditSearch" type="search" /></label>
+                  <button class="btn btn-ghost" id="refreshSuperadminAudit" type="button">Search audit logs</button>
+                </div>
+                <div class="table-wrap"><table class="table-modern"><thead><tr><th>When</th><th>Actor</th><th>Action</th><th>Entity</th><th>Details / IP</th></tr></thead><tbody id="superadminAuditTable"></tbody></table></div>
+              </section>
+            </section>
+
+            <section class="superadmin-panel" id="superadminSection-reports" hidden>
+              <section class="panel">
+                <h2>Platform reports</h2>
+                <form id="superadminReportForm" class="admin-form">
+                  <label><span>Report</span><select name="type"><option value="clients">Client registrations</option><option value="admins">Administrators</option><option value="users">All users</option><option value="admin-activity">Administrator activity</option><option value="service-performance">Service performance</option><option value="requests">Service requests</option><option value="completed">Completed requests</option><option value="pending">Pending requests</option><option value="monthly">Monthly requests</option><option value="yearly">Yearly requests</option></select></label>
+                  <label><span>From</span><input name="from" type="date" /></label>
+                  <label><span>To</span><input name="to" type="date" /></label>
+                  <button class="btn btn-ghost" type="button" data-superadmin-report-format="pdf">Export PDF</button>
+                  <button class="btn btn-ghost" type="button" data-superadmin-report-format="xlsx">Export Excel</button>
+                </form>
+              </section>
+            </section>
+
+            <section class="superadmin-panel" id="superadminSection-notifications" hidden>
+              <section class="panel">
+                <h2>Platform notifications and announcements</h2>
+                <form id="superadminNotificationForm" class="admin-form">
+                  <label><span>Title</span><input name="title" maxlength="200" required /></label>
+                  <label><span>Audience</span><select name="audience"><option value="client">All active clients</option><option value="admin">All active administrators</option><option value="superadmin">All active Super Admins</option><option value="all">All active users</option><option value="user">One active user</option></select></label>
+                  <label><span>Target user ID (only for one user)</span><input name="userId" type="number" min="1" /></label>
+                  <label class="wide-field"><span>Message</span><textarea name="body" maxlength="2000"></textarea></label>
+                  <button class="btn btn-primary" type="submit">Send notification</button>
+                </form>
+                <div class="admin-filter-row"><label><span>Search notification history</span><input id="superadminNotificationSearch" type="search" /></label><button class="btn btn-ghost" id="refreshSuperadminNotifications" type="button">Search</button></div>
+                <div id="superadminNotificationsList"></div>
+              </section>
+            </section>
+
+            <section class="superadmin-panel" id="superadminSection-backups" hidden>
+              <section class="panel">
+                <div class="panel-head"><h2>Database backups</h2><button class="btn btn-primary" id="createSuperadminBackup" type="button">Create backup</button></div>
+                <p class="empty-state">Restoring replaces current database contents. A pre-restore safety backup is created automatically. The selected backup must pass integrity checks and preserve your active Super Admin account.</p>
+                <div id="superadminBackupsList"></div>
+                <form id="superadminRestoreForm" class="admin-form">
+                  <label><span>Backup ID</span><input name="backupId" type="number" min="1" required /></label>
+                  <label><span>Type RESTORE DATABASE to confirm</span><input name="confirmation" required /></label>
+                  <button class="btn btn-ghost" type="submit">Restore selected backup</button>
+                </form>
+              </section>
+            </section>
+
+            <section class="superadmin-panel" id="superadminSection-profile" hidden>
+              <section class="panel">
+                <h2>Super Admin profile and security</h2>
+                <form id="superadminProfileForm" class="admin-form">
+                  <label><span>Full name</span><input name="fullName" maxlength="100" required /></label>
+                  <label><span>Email</span><input name="email" type="email" required /></label>
+                  <label><span>Phone</span><input name="phone" maxlength="40" /></label>
+                  <label><span>Current password (required to change password)</span><input name="currentPassword" type="password" /></label>
+                  <label><span>New password (minimum 12 characters)</span><input name="newPassword" type="password" minlength="12" maxlength="128" /></label>
+                  <button class="btn btn-primary" type="submit">Save profile</button>
+                </form>
+                <form id="superadminProfileImageForm" class="admin-form upload-form">
+                  <label><span>Profile image (PNG, JPEG or WebP; max 5 MB)</span><input name="image" type="file" accept="image/png,image/jpeg,image/webp" required /></label>
+                  <button class="btn btn-ghost" type="submit">Upload profile picture</button>
+                </form>
+                <form id="superadminPreferencesForm" class="admin-form">
+                  <label><span>Email notifications (requires mail configuration)</span><select name="emailEnabled"><option value="false">Off</option><option value="true">On</option></select></label>
+                  <label><span>In-app notifications</span><select name="inAppEnabled"><option value="true">On</option><option value="false">Off</option></select></label>
+                  <button class="btn btn-ghost" type="submit">Save security preferences</button>
+                </form>
+                <h3>Login history</h3><div id="superadminLoginHistory"></div>
+              </section>
             </section>
           </section>
         </main>
@@ -405,17 +952,20 @@
 
     <div class="overlay" id="sidebarOverlay"></div>
 
-    <aside class="notification-drawer" id="notificationDrawer" aria-label="Notification drawer">
+    <aside class="notification-drawer" id="notificationDrawer" aria-label="Notification drawer" aria-hidden="true" inert>
       <div class="panel-head drawer-head">
         <h2>Notifications</h2>
-        <button class="text-btn" id="closeNotifications" type="button">Close</button>
+        <div>
+          <button class="text-btn" id="markDrawerNotificationsRead" type="button">Mark all read</button>
+          <button class="text-btn" id="closeNotifications" type="button">Close</button>
+        </div>
       </div>
       <div id="drawerNotificationList"></div>
     </aside>
 
     <!-- Request service modal -->
     <div class="modal-backdrop" id="modalBackdrop"></div>
-    <div class="modal-card" id="requestModal" role="dialog" aria-modal="true" aria-labelledby="requestModalTitle">
+    <div class="modal-card" id="requestModal" role="dialog" aria-modal="true" aria-labelledby="requestModalTitle" aria-hidden="true" inert>
       <div class="modal-head">
         <div>
           <p class="eyebrow">Service request</p>
@@ -469,8 +1019,8 @@
           <textarea id="description" name="description" rows="4" required></textarea>
         </label>
         <label>
-          <span>Upload documents</span>
-          <input id="documents" name="documents" type="file" multiple />
+          <span>Reference link (optional)</span>
+          <input id="documents" name="documents" type="url" maxlength="500" placeholder="https://…" />
         </label>
         <label>
           <span>Additional notes</span>
@@ -485,7 +1035,7 @@
 
     <div class="toast" id="toast" aria-live="polite"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

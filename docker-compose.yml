@@ -1,9 +1,18 @@
-version: '3.8'
 services:
   web:
     build: .
     ports:
       - "3000:3000"
     environment:
-      - NOTIF_API_KEY=${NOTIF_API_KEY}
+      NODE_ENV: production
+      PORT: 3000
+      SESSION_SECRET: ${SESSION_SECRET:?Set SESSION_SECRET before starting the portal}
+      DB_PATH: /app/data/auth.db
+      NOTIF_API_KEY: ${NOTIF_API_KEY:-}
+      TRUST_PROXY: ${TRUST_PROXY:-0}
+    volumes:
+      - aj_data:/app/data
     restart: unless-stopped
+
+volumes:
+  aj_data:

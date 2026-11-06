@@ -1,17 +1,25 @@
 {
   "name": "aj-tech-auth",
   "version": "1.0.0",
-  "description": "Secure login and registration app for AJ Tech Solutions",
+  "description": "AJ Tech Solutions client service portal",
   "main": "server.js",
+  "engines": {
+    "node": ">=20.17.0"
+  },
   "scripts": {
     "start": "node server.js",
-    "smoke": "node scripts/smoke.js"
+    "setup-admin": "node scripts/setup-admin.js",
+    "smoke": "node scripts/smoke.js",
+    "test:admin": "node scripts/admin-tests.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "express": "^4.19.2",
+    "exceljs": "^4.4.0",
+    "express": "^4.22.3",
     "express-session": "^1.5.0",
-    "sqlite3": "^5.1.0",
-    "socket.io": "^4.7.2"
+    "multer": "^2.5.0",
+    "pdfkit": "^0.20.2",
+    "socket.io": "^4.7.2",
+    "sqlite3": "^6.0.1"
   }
 }

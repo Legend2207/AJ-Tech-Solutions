@@ -1,0 +1,10 @@
+.git
+.env
+node_modules
+auth.db
+auth.db-shm
+auth.db-wal
+data
+/uploads
+/backups
+*.log

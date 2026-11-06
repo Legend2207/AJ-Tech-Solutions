@@ -1,3 +1,9 @@
 node_modules/
 .env
 *.log
+auth.db
+auth.db-shm
+auth.db-wal
+data/
+/uploads/
+/backups/
